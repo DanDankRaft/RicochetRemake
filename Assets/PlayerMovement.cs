@@ -18,11 +18,15 @@ public class PlayerMovement : NetworkBehaviour {
 	public override void OnStartLocalPlayer()
 	{
 		playerController = GetComponent<CharacterController>();
-		transform.position = FindObjectOfType<NetworkManager>().transform.position;
+		transform.position = FindObjectOfType<NetworkManager>().transform.position; //gives us a changable spawn position TODO: find if there is a built-in way of doing this
+
+		transform.GetComponentInChildren<Camera>().enabled = true;
+		transform.GetComponentInChildren<AudioListener>().enabled = true;
 
 		count++;
 		transform.name = "Player " + count;
 	}
+
 	void Update()
 	{
 		if(isLocalPlayer) //only affect the player we are playing as
@@ -51,16 +55,13 @@ public class PlayerMovement : NetworkBehaviour {
 		}
 	}
 
-
-
-	//I decided to make a custom isGrounded with a little bit more wiggle room, since the normal isGrounded was giving me some issues with jumping
 	bool isGrounded()
 	{
-		const float wiggleRoom = 0.1f;
+		const float wiggleRoom = 0.2f;
 		//cast a ray that ignores the player, if it hits something within height/2 + wiggle room, than we are grounded
 		Ray groundRay = new Ray(transform.position, Vector3.down);
 		LayerMask mask = ~(1 << 8 << 9);
-		Debug.Log(Physics.Raycast(groundRay, playerController.height/2 + wiggleRoom));
+		//Debug.Log(Physics.Raycast(groundRay, playerController.height/2 + wiggleRoom));
 		return Physics.Raycast(groundRay, playerController.height/2 + wiggleRoom);
 	}
 }

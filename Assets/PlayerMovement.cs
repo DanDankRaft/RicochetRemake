@@ -12,24 +12,35 @@ public class PlayerMovement : NetworkBehaviour {
 
 	float xRotation;
 	float camRotation;
+
+	CharacterController playerController;
+	public static int count = 0;
+	public override void OnStartLocalPlayer()
+	{
+		playerController = GetComponent<CharacterController>();
+		transform.position = FindObjectOfType<NetworkManager>().transform.position;
+
+		count++;
+		transform.name = "Player " + count;
+	}
 	void Update()
 	{
 		if(isLocalPlayer) //only affect the player we are playing as
 		{
 			//movement
-			float xMovement = Input.GetAxisRaw("Horizontal") * speed;
-			float zMovement = Input.GetAxisRaw("Vertical") * speed;
+			float xMovement = Input.GetAxis("Horizontal") * speed;
+			float zMovement = Input.GetAxis("Vertical") * speed;
 
 			//gravity
-			if(GetComponent<CharacterController>().isGrounded)
+			if(playerController.isGrounded)
 				yMovement = 0;
 			else
 				yMovement -= .98f * Time.deltaTime;
 
 			//jumping
-			if(Input.GetButtonDown("Jump") && GetComponent<CharacterController>().isGrounded)
+			if(Input.GetButtonDown("Jump") && isGrounded()) //normal isGrounded didn't have enough wiggle room for jumping to feel good so I made a custom one
 				yMovement = jumpHeight;
-			GetComponent<CharacterController>().Move(transform.TransformDirection(xMovement, yMovement, zMovement));
+			playerController.Move(transform.TransformDirection(xMovement, yMovement, zMovement));
 
 			//rotation
 			xRotation += Input.GetAxisRaw("Mouse X") * sensitivity;
@@ -41,8 +52,15 @@ public class PlayerMovement : NetworkBehaviour {
 	}
 
 
-	public override void OnStartLocalPlayer()
+
+	//I decided to make a custom isGrounded with a little bit more wiggle room, since the normal isGrounded was giving me some issues with jumping
+	bool isGrounded()
 	{
-		transform.position = FindObjectOfType<NetworkManager>().transform.position; 
+		const float wiggleRoom = 0.1f;
+		//cast a ray that ignores the player, if it hits something within height/2 + wiggle room, than we are grounded
+		Ray groundRay = new Ray(transform.position, Vector3.down);
+		LayerMask mask = ~(1 << 8 << 9);
+		Debug.Log(Physics.Raycast(groundRay, playerController.height/2 + wiggleRoom));
+		return Physics.Raycast(groundRay, playerController.height/2 + wiggleRoom);
 	}
 }

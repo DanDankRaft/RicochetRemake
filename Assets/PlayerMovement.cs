@@ -14,17 +14,15 @@ public class PlayerMovement : NetworkBehaviour {
 	float camRotation;
 
 	CharacterController playerController;
-	public static int count = 0;
 	public override void OnStartLocalPlayer()
 	{
 		playerController = GetComponent<CharacterController>();
-		transform.position = FindObjectOfType<NetworkManager>().transform.position; //gives us a changable spawn position TODO: find if there is a built-in way of doing this
+	}
 
-		transform.GetComponentInChildren<Camera>().enabled = true;
-		transform.GetComponentInChildren<AudioListener>().enabled = true;
-
-		count++;
-		transform.name = "Player " + count;
+	void OnPlayerConnected(NetworkPlayer player)
+	{
+		if(!isLocalPlayer)
+			GetComponent<MeshRenderer>().material.color = Color.blue;
 	}
 
 	void Update()

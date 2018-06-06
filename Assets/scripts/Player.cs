@@ -11,6 +11,9 @@ public class Player : NetworkBehaviour {
 		transform.GetComponentInChildren<AudioListener>().enabled = true;
 		transform.Find("Direction Indicator").GetComponent<MeshRenderer>().enabled = false; //well I only want to see other players direction indicators
 		playerColor = Random.ColorHSV(0, 1, 1, 1, 1, 1, 0, 0);
+
+		//proper FPS mouse control
+		Cursor.lockState = CursorLockMode.Locked;
 	}
 
 	public int shootCounter = 3;

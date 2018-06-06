@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class frisbee : NetworkBehaviour {
 
-	public static float speed = 5;
+	public static float speed = 20;
 	public Player ownerPlayer;
 
 	Vector3 frisbeeVelocity;

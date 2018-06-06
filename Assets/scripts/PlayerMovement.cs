@@ -64,37 +64,15 @@ public class PlayerMovement : NetworkBehaviour {
 		return Physics.Raycast(groundRay, playerController.height/2 + wiggleRoom, groundedLayers);
 	}
 	
-	//wrapper for AddForce that avoids direct call of StartCoroutine
-	///<summary>
-	///A function that emulates Rigidbody.AddForce()
-	///</summary>
-	///<param name="direction"> the world-space direction in which the force is applied </param>
-	///<param name="speed"> the speed, in meters/second, in which the player moves </param>
-	///<param name="time"> the time, in seconds, in which the player moves </param>
-	public void AddForce(Vector3 direction, float speed, float time)
-	{
-		StartCoroutine(AddForceInternal(direction, speed, time));
-	}
-
-	IEnumerator AddForceInternal(Vector3 direction, float speed, float time)
-	{
-
-		for(float timePassed = 0; timePassed < time; timePassed += Time.deltaTime)
-		{
-			playerController.Move(direction * speed * Time.deltaTime);
-			yield return new WaitForEndOfFrame();			
-		}
-
-	}
 
 	///<summary> a function that emulates Rigidbody.AddForce() </summary>
 	///<param name="force"> the force added, equals to the distance the player will move </param>
-	public void AltAddForce(Vector3 force)
+	public void AddForce(Vector3 force)
 	{
-		StartCoroutine(AltAddForceInternal(force));
+		StartCoroutine(AddForceInternal(force));
 	}
 
-	IEnumerator AltAddForceInternal(Vector3 force)
+	IEnumerator AddForceInternal(Vector3 force)
 	{
 		float movementSpeed = force.magnitude;
 		float initialMovementSpeed = movementSpeed;
@@ -113,7 +91,7 @@ public class PlayerMovement : NetworkBehaviour {
 	{
 		if(hit.gameObject.GetComponent<bouncer>() != null && lastCollidedObject != hit.gameObject)
 		{
-			AltAddForce(Vector3.Reflect(hit.moveDirection.normalized * 20, hit.normal));
+			AddForce(Vector3.Reflect(hit.moveDirection.normalized * 20, hit.normal));
 		}
 		if(hit.gameObject.tag != "Floor")
 			lastCollidedObject = hit.gameObject;

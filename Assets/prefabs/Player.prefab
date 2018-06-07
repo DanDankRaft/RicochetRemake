@@ -61,7 +61,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4036072203163086}
   - component: {fileID: 33637498888002732}
-  - component: {fileID: 65415413805741184}
   - component: {fileID: 23837069457565608}
   m_Layer: 9
   m_Name: Direction Indicator
@@ -231,18 +230,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1863922748717542}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65415413805741184
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1863922748717542}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &81160865360939922
 AudioListener:
   m_ObjectHideFlags: 1
@@ -294,10 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa8b802ab3e9bf40a101e208b18f5e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootCounter: 3
-  playerColor: {r: 0, g: 0, b: 0, a: 0}
-  frisbeePrefab: {fileID: 1708065058744534, guid: f438d2e1a78fb4441a2bbe3f5b79dfdc,
-    type: 2}
+  frisbee: {fileID: 1708065058744534, guid: f438d2e1a78fb4441a2bbe3f5b79dfdc, type: 2}
 --- !u!114 &114652709974108712
 MonoBehaviour:
   m_ObjectHideFlags: 1

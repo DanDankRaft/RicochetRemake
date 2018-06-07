@@ -81,7 +81,7 @@ public class PlayerMovement : NetworkBehaviour {
 		{
 			playerController.Move(force.normalized * movementSpeed / 60);
 			totalDistance += movementSpeed / 60f;
-			movementSpeed -= initialMovementSpeed / 120f;
+			movementSpeed -= initialMovementSpeed / 600f;
 			yield return new WaitForEndOfFrame();
 		}
 	}

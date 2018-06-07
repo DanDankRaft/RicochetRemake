@@ -11,7 +11,7 @@ public class frisbee : NetworkBehaviour {
 
 	void Update()
 	{
-		if(isLocalPlayer)
+		if(isServer)
 			GetComponent<Rigidbody>().velocity = frisbeeVelocity * speed;		
 	}
 }

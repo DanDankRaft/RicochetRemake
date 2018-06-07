@@ -16,13 +16,14 @@ public class Player : NetworkBehaviour {
 
 	//the function that shoots the frisbee
 	public GameObject frisbee;
+	
 
 	[Command] public void CmdFire()
 	{
-		Vector3 frisbeePosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width/2, Screen.height/2, 2f));
-		Vector3 frisbeeRotation = Camera.main.transform.eulerAngles + frisbee.transform.eulerAngles; 
+		Vector3 frisbeePosition = GetComponentInChildren<Camera>().ScreenToWorldPoint(new Vector3(Screen.width/2, Screen.height/2, 2f));
+		Vector3 frisbeeRotation = GetComponentInChildren<Camera>().transform.eulerAngles + frisbee.transform.eulerAngles; 
 		GameObject instantiatedFrisbee = Instantiate(frisbee, frisbeePosition, Quaternion.Euler(frisbeeRotation));
-		instantiatedFrisbee.GetComponent<frisbee>().frisbeeVelocity = Camera.main.transform.TransformDirection(Vector3.forward);
+		instantiatedFrisbee.GetComponent<frisbee>().frisbeeVelocity = GetComponentInChildren<Camera>().transform.TransformDirection(Vector3.forward);
 		NetworkServer.Spawn(instantiatedFrisbee);
 	}
 

@@ -48,7 +48,7 @@ public class PlayerMovement : NetworkBehaviour {
 			//rotation
 			xRotation += Input.GetAxisRaw("Mouse X") * sensitivity;
 			camRotation += Input.GetAxis("Mouse Y") * sensitivity;
-			camRotation = Mathf.Clamp(camRotation, -45, 45);
+			camRotation = Mathf.Clamp(camRotation, -90, 90);
 			transform.eulerAngles = new Vector3(transform.eulerAngles.x, xRotation, transform.eulerAngles.z);
 			transform.GetComponentInChildren<Camera>().transform.eulerAngles = new Vector3(-camRotation, transform.eulerAngles.y, transform.eulerAngles.z);
 		}
@@ -77,11 +77,11 @@ public class PlayerMovement : NetworkBehaviour {
 		float movementSpeed = force.magnitude;
 		float initialMovementSpeed = movementSpeed;
 		float totalDistance = 0f;
-		while ( totalDistance < force.magnitude)
+		while ( totalDistance < force.magnitude && movementSpeed > 0)
 		{
 			playerController.Move(force.normalized * movementSpeed / 60);
-			totalDistance += movementSpeed / 60f;
-			movementSpeed -= initialMovementSpeed / 600f;
+			totalDistance += movementSpeed * Time.deltaTime;
+			movementSpeed -= initialMovementSpeed * Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
 	}

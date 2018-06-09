@@ -282,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frisbee: {fileID: 1708065058744534, guid: f438d2e1a78fb4441a2bbe3f5b79dfdc, type: 2}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114652709974108712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -298,7 +299,7 @@ MonoBehaviour:
   jumpHeight: 0.35
   groundedLayers:
     serializedVersion: 2
-    m_Bits: 4294966527
+    m_Bits: 4294965503
 --- !u!114 &114901600913839824
 MonoBehaviour:
   m_ObjectHideFlags: 1

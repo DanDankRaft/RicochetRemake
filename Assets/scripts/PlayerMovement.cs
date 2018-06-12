@@ -31,8 +31,8 @@ public class PlayerMovement : NetworkBehaviour {
 		if(isLocalPlayer) //only affect the player we are playing as
 		{
 			//movement
-			float xMovement = Input.GetAxis("Horizontal") * speed;
-			float zMovement = Input.GetAxis("Vertical") * speed;
+			float xMovement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+			float zMovement = Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
 			//gravity
 			if(playerController.isGrounded)

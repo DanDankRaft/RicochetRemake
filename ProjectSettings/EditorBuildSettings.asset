@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/level.unity
     guid: 9bd8c0b83e9ed6746aafb08b033c19a2
+  - enabled: 1
+    path: Assets/Deathmatch1.unity
+    guid: 20c4a0361dde26449a3bfed2521fef03
   m_configObjects: {}

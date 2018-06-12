@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdc605d525085042815f2fd4d0bc662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.3
+  speed: 18
   sensitivity: 5
   jumpHeight: 0.35
   groundedLayers:

@@ -18,11 +18,14 @@ public class Player : NetworkBehaviour {
 	//the function that shoots the frisbee
 	public GameObject frisbee;
 	[SyncVar] public Color playerColor;
+	[SyncVar] public Player.PlayerInfo info;
+	public Player.PlayerInfo lastAttackingPlayer;
 
 	[Command]
 	void CmdGeneratePlayerColor()
 	{
 		playerColor = Random.ColorHSV(0, 1, 1, 1, 1, 1);
+		info = new PlayerInfo("This Player", playerColor);
 	}
 
 	//information to send to frisbee when firing
@@ -69,7 +72,24 @@ public class Player : NetworkBehaviour {
 
 	void OnControllerColliderHit(ControllerColliderHit hit)
 	{
+		print("hit something");
+
+		if(hit.gameObject.GetComponent<border>() != null)
+		{
+			Kill();
+		}
 		if(hit.gameObject.GetComponent<Launcher>() != null)
-			GetComponent<PlayerMovement>().AddForce(hit.gameObject.GetComponent<Launcher>().launchDirection);
+		{
+			Launcher playerLauncher = hit.gameObject.GetComponent<Launcher>();
+			StartCoroutine(GetComponent<PlayerMovement>().AddLauncherForce(hit.gameObject.GetComponent<Launcher>().movementVector, hit.gameObject.GetComponent<Launcher>().jumpHeight, playerLauncher.time));
+		}
+
+
+	}
+
+	public void Kill()
+	{
+		Debug.Log("oh no player died");
+		transform.position = Vector3.zero; //TODO: change to proper spawn point
 	}
 }

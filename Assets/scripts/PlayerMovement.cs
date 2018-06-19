@@ -26,13 +26,15 @@ public class PlayerMovement : NetworkBehaviour {
 			GetComponent<MeshRenderer>().material.color = Color.blue;
 	}
 
+	float xMovement;
+	float zMovement;
 	void Update()
 	{
 		if(isLocalPlayer) //only affect the player we are playing as
 		{
 			//movement
-			float xMovement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-			float zMovement = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+			xMovement = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+			zMovement = Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
 			//gravity
 			if(playerController.isGrounded)
@@ -72,19 +74,52 @@ public class PlayerMovement : NetworkBehaviour {
 		StartCoroutine(AddForceInternal(force));
 	}
 
+	public float forceDuration;
 	IEnumerator AddForceInternal(Vector3 force)
 	{
-		float movementSpeed = force.magnitude;
-		float initialMovementSpeed = movementSpeed;
-		float totalDistance = 0f;
-		while ( totalDistance < force.magnitude && movementSpeed > 0)
+		float lastTime = 0;
+		float time = Time.deltaTime;
+		while(time < forceDuration)
 		{
-			playerController.Move(force.normalized * movementSpeed / 60);
-			totalDistance += movementSpeed * Time.deltaTime;
-			movementSpeed -= initialMovementSpeed * Time.deltaTime;
+			if(force.y != 0) yMovement = 0;
+			if(force.x != 0) xMovement = 0;
+			if(force.z != 0) zMovement = 0;
+
+			Vector3 interpolatedMovement = new Vector3(Sinerp(0, force.x, time/forceDuration),Sinerp(0, force.y, time/forceDuration),Sinerp(0, force.z, time/forceDuration)) -
+			new Vector3(Sinerp(0, force.x, lastTime/forceDuration),Sinerp(0, force.y, lastTime/forceDuration),Sinerp(0, force.z, lastTime/forceDuration));
+			playerController.Move(interpolatedMovement);
+			lastTime = time;
+			time += Time.deltaTime;
 			yield return new WaitForEndOfFrame();
 		}
 	}
+
+	///<summary> a function that sine interpolates between inputA and inputB </summary>
+	///<param name="inputA"> the initial value </param>
+	///<param name="inputB"> the final value </param>
+	///<param name="inputT"> what percent of the way between inputA and inputB should we interpolate? </param>
+	public static float Sinerp(float inputA, float inputB, float inputT)
+	{
+		float t = Mathf.Clamp01(inputT);
+		float delta = inputB - inputA;
+		return Mathf.Sin(Mathf.PI * t * 0.5f) * delta + inputA;
+	}
+
+	public IEnumerator AddLauncherForce(Vector3 force, float extraHeight, float time = 1.5f)
+	{
+		playerController.Move(Vector3.up * 10);
+		Vector3 flatMovement = new Vector3(force.x, 0, force.z);
+		float totalDistance = 0;
+		yMovement = extraHeight;
+		while(totalDistance < flatMovement.magnitude)
+		{
+			playerController.Move(flatMovement/time * Time.deltaTime);
+			totalDistance += flatMovement.magnitude/time * Time.deltaTime;
+			print("loop got to " + totalDistance);
+			yield return new WaitForEndOfFrame();
+		}
+	}
+
 
 	GameObject lastCollidedObject;
 	void OnControllerColliderHit(ControllerColliderHit hit)

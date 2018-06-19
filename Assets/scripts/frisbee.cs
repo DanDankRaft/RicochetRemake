@@ -32,10 +32,15 @@ public class Frisbee : NetworkBehaviour {
 		float wiggleRoom = 0.5f;
 		if(Physics.Raycast(hitRay, out hit, GetComponent<Collider>().bounds.extents.x + wiggleRoom, hitMask))
 		{
-			if(hit.collider.gameObject.GetComponent<Player>() != null)
+			if(hit.collider.gameObject.GetComponent<PlayerMovement>() != null)
 			{
-				Debug.Log(hit.collider.gameObject.name + " Died!");
+				hit.collider.gameObject.GetComponent<Player>().lastAttackingPlayer = senderPlayer;
+				hit.collider.gameObject.GetComponent<PlayerMovement>().AddForce(new Vector3(frisbeeVelocity.x * 3, frisbeeVelocity.y * 3, frisbeeVelocity.z * 3));
+				Destroy(gameObject);
 			}
+			if(hit.collider.gameObject.GetComponent<border>() != null)
+				Destroy(gameObject);
+
 			frisbeeVelocity = Vector3.Reflect(frisbeeVelocity, hit.normal);
 		}
 	}

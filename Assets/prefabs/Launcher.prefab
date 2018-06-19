@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1276302380183024}
   m_IsPrefabParent: 1
+--- !u!1 &1089666443163176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4288728017282136}
+  m_Layer: 0
+  m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1276302380183024
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,21 +44,35 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!4 &4288728017282136
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089666443163176}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -20.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4987038337957220}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 98.2, y: 0, z: 0}
 --- !u!4 &4987038337957220
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276302380183024}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.764, z: 4.988}
+  m_LocalRotation: {x: -0.33581418, y: -0.53609014, z: -0.74639815, w: 0.20670274}
+  m_LocalPosition: {x: -2.4961944, y: -2.2924323, z: -1.9290891}
   m_LocalScale: {x: 1.45, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4288728017282136}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -110.099, y: -125.524, z: -8.617004}
 --- !u!23 &23842801500805562
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -142,4 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f07d116da1f84d54483b2fd4352bfb3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchDirection: {x: 0, y: 40, z: 19.5}
+  extraHeight: 7.17
+  landingIndicator: {fileID: 4288728017282136}

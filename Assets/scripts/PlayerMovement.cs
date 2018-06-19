@@ -116,6 +116,9 @@ public class PlayerMovement : NetworkBehaviour {
 			playerController.Move(flatMovement/time * Time.deltaTime);
 			totalDistance += flatMovement.magnitude/time * Time.deltaTime;
 			print("loop got to " + totalDistance);
+			if(isGrounded())
+				break;
+		
 			yield return new WaitForEndOfFrame();
 		}
 	}

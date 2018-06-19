@@ -68,6 +68,13 @@ public class Player : NetworkBehaviour {
 			return;
 		if(Input.GetButtonDown("Fire1"))
 			Fire();
+
+		Ray ray = new Ray(transform.position, Vector3.down);
+		RaycastHit hit;
+		if(Physics.Raycast(ray, out hit, 1.5f) && hit.collider.gameObject.GetComponent<border>() != null)
+		{
+			Kill();
+		}
 	}
 
 	void OnControllerColliderHit(ControllerColliderHit hit)

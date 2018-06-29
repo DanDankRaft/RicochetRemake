@@ -3,26 +3,21 @@ guid: 00bb8aa947258804da9bbeb17e24eb83
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Frisbee
+    100000: Frisbee
+    100002: //RootNode
     100004: FrisbeeCol
-    400000: //RootNode
-    400002: Frisbee
+    400000: Frisbee
+    400002: //RootNode
     400004: FrisbeeCol
     2100000: unnamed
-    2100002: Material_001
-    2100004: Material_002
-    2100006: Metal
-    2100008: Light
-    2300000: //RootNode
-    2300002: Frisbee
-    2300004: FrisbeeCol
-    3300000: //RootNode
-    3300002: Frisbee
-    3300004: FrisbeeCol
-    4300000: Cylinder
-    4300002: FrisbeeCol
-    4300004: Frisbee
+    2100002: Metal
+    2100004: Light
+    2300000: Frisbee
+    2300002: FrisbeeCol
+    3300000: Frisbee
+    3300002: FrisbeeCol
+    4300000: FrisbeeCol
+    4300002: Frisbee
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
